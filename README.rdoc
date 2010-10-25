@@ -1,3 +1,7 @@
+= Why I forked GeoPlanet
+
+I wanted to store the results in memcached so I could limit my calls to yahoo and improve the performance of my application. 
+
 = geoplanet
 
 A Ruby wrapper for the Yahoo! GeoPlanet APIs. It's inspired on Mattt Thompson's yahoo-geoplanet gem,
@@ -6,7 +10,7 @@ but this version supports better usage of matrix and query parameters, uses JSON
 
 == INSTALL:
 
-  gem install geoplanet
+  get the source code from this git repo
 
 
 == Usage
