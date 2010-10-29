@@ -19,7 +19,6 @@ module GeoPlanet
     def self.search(text, options = {})
       text = URI.encode(text)
       url = build_url('places', options.merge(:q => text, :format => 'json'))
-      puts "Yahoo GeoPlanet: GET #{url}" if GeoPlanet.debug
       get_then_parse(url)
     end
     

@@ -26,12 +26,26 @@ module GeoPlanet
       end
       
       def get(url)
-        RestClient.get(url)
+        if GeoPlanet.memcached
+          url_hash      = Digest::MD5.hexdigest(url)
+          cached_result = GeoPlanet.memcached.get(url_hash)
+          if cached_result.nil? == false
+            puts "Yahoo GeoPlanet: CACHE #{url}" if GeoPlanet.debug
+            return cached_result
+          end          
+        end
+        puts "Yahoo GeoPlanet: GET #{url}" if GeoPlanet.debug
+        result = RestClient.get(url)
+        if GeoPlanet.memcached
+          GeoPlanet.memcached.set(url_hash, result)        
+        end
+        result
+        
       rescue RestClient::RequestFailed
         raise BadRequest, "appid, q filter or format invalid"
       rescue RestClient::ResourceNotFound
         raise NotFound, "woeid or URI invalid"
-      end
+      end      
 
       protected
       def supported_options_for(resource_path)
