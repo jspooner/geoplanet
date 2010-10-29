@@ -2,6 +2,10 @@
 
 I wanted to store the results in memcached so I could limit my calls to yahoo and improve the performance of my application. 
 
+If you want to cache the response in memcached
+GeoPlanet.memcached = Dalli::Client.new("localhost:11211")
+
+
 = geoplanet
 
 A Ruby wrapper for the Yahoo! GeoPlanet APIs. It's inspired on Mattt Thompson's yahoo-geoplanet gem,
@@ -36,6 +40,9 @@ but this version supports better usage of matrix and query parameters, uses JSON
   require 'geoplanet'
   GeoPlanet.appid = [Your App ID Here]
   
+	# If you want to cache the response in memcached
+	GeoPlanet.memcached = Dalli::Client.new("localhost:11211")
+
   a = GeoPlanet::Place.new(752067) # WoE ID for Algeciras
   
   # Everything you get back from the API you have direct access to
